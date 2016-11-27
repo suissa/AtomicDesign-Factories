@@ -1,19 +1,11 @@
 const CONFIG = require('./config')
 const MoleculeFactory = require(CONFIG.MOLECULE_FACTORY)
+const structure = require('./molecule.structure')
 
-// Atoms
-const name = require(CONFIG.ATOMS_PATH + 'atom-name')
-const email = require(CONFIG.ATOMS_PATH + 'atom-email')
-const description = require(CONFIG.ATOMS_PATH + 'atom-description')
-const created_at = { type: Date, default: Date.now }
-
-// Molecular Formula
-const Formula = {
-  name
-, email
-, description
-, created_at
-}
+const Formula = structure.reduce((acc, atom) => {
+  acc[atom] = require(CONFIG.ATOMS_PATH + 'atom-' + atom)
+  return Object.assign({}, acc)
+}, {})
 
 const Molecule = MoleculeFactory(Formula)
 // console.log(Molecule)
