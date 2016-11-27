@@ -5,10 +5,8 @@ module.exports = (value) => {
 
   const MIN = 9
   const MAX = 50
-
+  
   if (isEmpty) return false
   if (!isString) return false
-  if (value.length > MIN && value.length < MAX) return false
-
-  return regex.test(value)
+  return (value.length > MIN && value.length < MAX && regex.test(value))
 }
