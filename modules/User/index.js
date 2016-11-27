@@ -1,5 +1,6 @@
-const _router = require('./routerExpress')
-const Routes = require('./routes')(require('./organism'))
-const Router = require('./routesExpress')(Routes, _router)
+const CONFIG = require('./config')
+const _router = require('./routes/' + CONFIG.ROUTER)
+const Routes = require('./routes/')(require('./organism'))
+const Router = require('./routes/' + CONFIG.ROUTES)(Routes, _router)
 
 module.exports = Router

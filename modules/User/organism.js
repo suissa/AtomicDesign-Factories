@@ -1,16 +1,10 @@
-const CONFIG = require('./../../_config/project')
-
-const name = __filename
-              .split(CONFIG.PROJECT_NAME)[1]
-              .split('modules')[1]
-              .split('organism.js')[0]
-              .replace(/\//g, '')
-              .replace(/\\/g, '')
+const CONFIG = require('./config')
+const name = require('./../../_config/organism/getName')(__filename)
 
 const DNA = {
 	name
   // organelles: ['']
 }
-const Cell = require(CONFIG.FACTORIES_PATH + 'organism')(DNA)
+const Cell = require(CONFIG.ORGANISM_FACTORY)(DNA)
 
 module.exports = Cell
