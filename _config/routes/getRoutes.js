@@ -1,5 +1,12 @@
 const MODULES_PATH = './../../modules/'
 
-module.exports = (module, i) => ({ 
-  path: '/api/' + module.toLowerCase() + 's', 
-  module: MODULES_PATH + module })
+module.exports = (module, i) => {
+  
+  let path = '/api/' + module.toLowerCase()
+  if (!path.endsWith('s')) path += 's'
+    
+  return { 
+    path, 
+    module: MODULES_PATH + module 
+  }
+}
