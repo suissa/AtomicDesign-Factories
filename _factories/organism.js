@@ -3,6 +3,7 @@ const moleculesPath = './../modules/'
 const organellesPath = './../_organelles/'
 
 module.exports = (DNA) => {
+	console.log('DNA organism', DNA)
 	const organismName = DNA.name
 	const Molecule = require(moleculesPath+organismName.toLowerCase()+'/molecule')
 	const Organism = mongoose.model(organismName, Molecule)
