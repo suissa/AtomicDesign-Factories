@@ -1,8 +1,3 @@
-// const PROJECT_NAME = 'factories'
-// const PROJECT_PATH =  __dirname.split(PROJECT_NAME)[0]+PROJECT_NAME
-// const FACTORIES_PATH = PROJECT_PATH + '/_factories/'
-// console.log('FACTORIES_PATH', FACTORIES_PATH)
-
 const CONFIG = require('./../../_config/project')
 
 const name = __filename

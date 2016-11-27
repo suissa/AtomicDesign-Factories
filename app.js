@@ -25,12 +25,10 @@ let modules = require('./getModules')
 const createRoutes = (element, index) => {
   api[element] = require('./modules/' + element + '/')
   app.use('/api/' + element, api[element])
-  // console.log('element', element)
-  // console.log('/api/' + element, api[element])
 }
 
-modules.forEach(createRoutes)
   /* Cria as rotas dinamicamente a partir dos módulos */
+modules.map(createRoutes)
 
 app.get('/ping', function (req, res, next) {
   console.log(req.body)
