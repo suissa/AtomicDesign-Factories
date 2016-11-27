@@ -1,7 +1,11 @@
-const callback = require('./organelle-response-200-json')
-module.exports = (Organism) => {
-  return (req, res) => {
+module.exports = (Organism) => 
+  (req, res) => {
     const query = {}
-    Organism.find(query, (err, data) => callback(err, data, res))
+    const success = require('./ribossomos/success-200-json')(res)
+    const error = require('./ribossomos/error-json')(res)
+    
+    return Organism.find(query)
+      .exec()
+      .then(success, error)
   }
-}
+
