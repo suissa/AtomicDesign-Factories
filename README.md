@@ -83,3 +83,55 @@ module.exports = [
   'created_at'
 ]
 ```
+
+Esse arquivo será utilizado pelo `config.module.js` que é um arquivo obrigatório dentro de cada módulo, o qual contém esse código:
+
+```js
+const name = require('./../../_config/module/getName')(__filename)
+const organelles = []
+
+const molecule = {
+  structure: require('./molecular.structure')
+}
+const organism = { 
+  name
+  // organelles
+}
+
+const DNA = {
+    organism,
+  molecule
+}
+const Cell = require('./../../_factories/module')(DNA)
+
+module.exports = Cell
+```
+
+Inicialmente ele importa o arquivo `_config/module/getName` passando `__filename` para que essa função retorne o nome do módulo, esse é seu código caso você precise modificar algo:
+
+```js
+const CONFIG = require('./../project')
+
+module.exports = (_file) =>
+  _file
+    .split(CONFIG.PROJECT_NAME)[1]
+    .split('modules')[1]
+    .split('config.module.js')[0]
+    .replace(/\//g, '')
+    .replace(/\\/g, '')
+```
+
+O *Array* vazio de *organelles* está assim pois não precisamos passar nenhuma função específica para a geração desse módulo pois o mesmo já virá com todas as funções de CRUD por padrão.
+
+Depois criamos o **DNA** desse módulo e passamos para a *factory* do *module* que retorna nosso *Organism* para podermos exportar:
+
+```js
+
+const DNA = {
+    organism,
+  molecule
+}
+const Cell = require('./../../_factories/module')(DNA)
+
+module.exports = Cell
+```
