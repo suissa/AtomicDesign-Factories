@@ -5,7 +5,7 @@ const FACTORY_MOLECULE = require('./molecule')
 const FACTORY_ATOM = require('./atom')
 
 module.exports = (DNA) => {
-  // console.log('DNA.molecularStructure', DNA.molecularStructure)
+  // console.log('DNA.molecule.structure', DNA.molecule.structure)
   const molecule = FACTORY_MOLECULE(DNA.molecule.structure)
 	const organism = FACTORY_ORGANISM(DNA.organism, molecule)
 
