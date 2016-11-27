@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const compress = require('compression')
 const favicon = require('serve-favicon')
+const modules = require('./getModules')('./modules/')
+const api = {}
 
 app.use(morgan('dev'))
 app.use(cookieParser())
@@ -17,25 +19,17 @@ app.use(cors())
 app.use(compress()) // Compress response data with gzip
   // app.use(favicon(__dirname + '/favicon.ico'))
 
-
 /* Cria as rotas dinamicamente a partir dos módulos */
-let api = {}
-let modules = require('./getModules')
+const getRoutes = require('./_config/routes/getRoutes')
+const createRoutes = require('./_config/routes/createRoutes')(app)
 
-const createRoutes = (element, index) => {
-  api[element] = require('./modules/' + element + '/')
-  app.use('/api/' + element, api[element])
-}
+modules
+.map(getRoutes)
+.reduce(createRoutes, app)
 
-  /* Cria as rotas dinamicamente a partir dos módulos */
-modules.map(createRoutes)
+app.get('/ping', (req, res, next) => res.send('pong') )
 
-app.get('/ping', function (req, res, next) {
-  console.log(req.body)
-  res.send('pong')
-})
-
-app.listen(port, function () {
+app.listen(port, () => {
   console.log('---------------------------------------------------------------------------')
   console.log('Express server listening on port ' + port)
   console.log('env = ' + app.get('env') +
