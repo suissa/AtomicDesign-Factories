@@ -3,7 +3,7 @@ const MOLECULE_CONFIG_PATH = './../_config/molecule/'
 const CREATE = 'createMolecularFormula'
 
 module.exports = (MolecularStructure) => {
-  console.log('MolecularStructure', MolecularStructure)
+  // console.log('MolecularStructure', MolecularStructure)
   const createMolecularFormula = require(MOLECULE_CONFIG_PATH + CREATE)
   const Formula = MolecularStructure.reduce(createMolecularFormula, {})
 

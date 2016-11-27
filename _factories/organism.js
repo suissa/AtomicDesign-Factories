@@ -2,11 +2,10 @@ const mongoose = require('mongoose')
 const moleculesPath = './../modules/'
 const organellesPath = './../_organelles/'
 
-module.exports = (DNA) => {
-	console.log('DNA organism', DNA)
+module.exports = (DNA, Molecule) => {
+
 	const organismName = DNA.name
-	const Molecule = require(moleculesPath+organismName.toLowerCase()+'/molecule')
-	const Organism = mongoose.model(organismName, Molecule)
+	const Organism = mongoose.model(organismName, Molecule) // deixar generico
 
 	let Cell = {}
 	const Organelles = require('./../_config/organelles-default')

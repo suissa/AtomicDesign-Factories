@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/db-atomic-modules')
+mongoose.Promise = require('bluebird')
 
 const db = mongoose.connection
 

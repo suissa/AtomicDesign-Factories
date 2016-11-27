@@ -22,17 +22,3 @@ const createOptional = (CONFIG) =>
 module.exports = (CONFIG) => 
   Object.assign( {}, createRequired(CONFIG), createOptional(CONFIG))
 
-
-
-// const normalizeAtom = (Atom) => {
-
-//   let _atom = Object.assign({}, Atom)
-
-//   const removeFields = (field, i) => ( Object.keys(_atom).includes(field) ) 
-//                                 ? _atom
-//                                 : delete _atom[field] 
-//   const reduceToObject =  (acc, cur) => Object.assign(acc, cur)
-//   return REMOVE_FIELDS
-//           .map(removeFields)
-//           .reduce(reduceToObject, {})
-// }
