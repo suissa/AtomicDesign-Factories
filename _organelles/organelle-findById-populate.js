@@ -1,11 +1,11 @@
-module.exports = (Organism) => 
+module.exports = (Organism, populate) => 
   (req, res) => {
     const query = {_id: req.params.id}
     const success = require('./ribossomos/success-200-json')(res)
     const error = require('./ribossomos/error-json')(res)
-    
+    console.log('populate', populate)
     return Organism.findOne(query)
-      .populate({path: 'supervisor._id', model: 'User'})
+      .populate(populate)
       .exec()
       .then(success, error)
   }

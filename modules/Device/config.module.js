@@ -8,7 +8,7 @@ const molecule = {
 const organism = { 
   name,
   organelles,
-  populate: {path: 'supervisor._id', model: 'User'}
+  populate: {path: 'department', model: 'Department'}
 }
 
 const DNA = {

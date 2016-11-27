@@ -14,7 +14,11 @@ module.exports = (DNA, Molecule) => {
 		DNA.organelles.forEach((element, index) => Organelles.push(element))
 
 	const createOrganelles = (element, index) => {
-		Cell[element] = require(organellesPath+'organelle-'+element)(Organism)
+		if (element.includes('populate') && DNA.populate) {
+			Cell[element] = require(organellesPath+'organelle-'+element)(Organism, DNA.populate)
+		} else {
+			Cell[element] = require(organellesPath+'organelle-'+element)(Organism)
+		}
 	}
 
 	Organelles.forEach(createOrganelles)
