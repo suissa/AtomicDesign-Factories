@@ -1,6 +1,44 @@
 # Atomic Design - Factories
 
+> Bem vindo ao mundo atômico do JavaScript!
+
+![](http://www.womenatworkmuseum.org/atomic1.gif)
+
+Podemos separar em 3 áreas, para facilitar, essa arquitetura:
+
+- routes
+- organism/molecule
+- atoms
+
+Porém como estamos trabalhando com o Atomic Design vamos iniciar pelos átomos.
+
+> O que são *esses* átomos?
+
+
+Nessa minha arquitetura eu criei uma analogia dos átomos com os campos de um *Schema*, pois eles devem ser independentes para que possamos reusa-los.
+
+Se você pensar em campos de uma tabela os átomos são exatamente eles, mas por que modularizar isso?
+
+> Fácil! Para reusar e nunca ter que escrever a mesma coisa, tendo em vista que os campos possuem quase o mesmo comportamento independente do sistema.
+
+Darei um exemplo bem usual, o campo/átomo de CPF. Esse campo sempre terá o mesmo formato e a mesma validação, até que mudem ele. :p
+
+> Então porque ficar copiando e colando código sendo que podemos apenas usa-lo?
+
+Bom mas não para por aí, porque os átomos são compostos de *Quarks* e sim também uso-os nessa arquitetura.
+
+Os *Quarks* são nossas funções de validação, onde você pode ir compondo uma validação maior reusando as validações menores já existentes. Por exemplo o próprio validador do CPF que reusa as validações de `isEmpty` e `isString`.
+
+Então quando formos iniciar um sistema, após modelarmos sua coleção/tabela precisamos criar os átomos/campos que ainda não existem assim como seus *quarks* de validação. Após essa etapa iremos agrega-los para gerar uma Molécula/Schema.
+
+Depois de exportamos a Molécula utilizaremos ela para criar o Organismo que pode ser comparado com um *Controller*, pois é nele que estarão as ações a sempre utilizadas nas rotas da nossa API.
+
+Após termos o Organismo criado iremos utilizar suas funções nas rotas.
+
+> **MUITO SIMPLES NÉ!?**
+
 ## Estrutura
+
 
 Como utilizamos uma estrutura atômica/modular para que possamos reaproveitar ao máximo tudo que criarmos possuimos algumas pastas *"globais"* para o projeto, pois os módulos apenas usarão o que já tiver sido criado.
 
@@ -135,3 +173,4 @@ const Cell = require('./../../_factories/module')(DNA)
 
 module.exports = Cell
 ```
+
