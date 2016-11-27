@@ -1,12 +1,12 @@
 const CONFIG = require('./config')
+const MOLECULE_CONFIG_PATH = './../../_config/molecule/'
+const CREATE = 'createMolecularFormula'
+
+const MolecularStructure = require('./molecular.structure')
+const createMolecularFormula = require(MOLECULE_CONFIG_PATH + CREATE)
+const Formula = MolecularStructure.reduce(createMolecularFormula, {})
+
 const MoleculeFactory = require(CONFIG.MOLECULE_FACTORY)
-const structure = require('./molecule.structure')
-
-const Formula = structure.reduce((acc, atom) => {
-  acc[atom] = require(CONFIG.ATOMS_PATH + 'atom-' + atom)
-  return Object.assign({}, acc)
-}, {})
-
 const Molecule = MoleculeFactory(Formula)
 // console.log(Molecule)
 module.exports = Molecule
