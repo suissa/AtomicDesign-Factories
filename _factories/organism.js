@@ -18,6 +18,6 @@ module.exports = (DNA) => {
 	}
 
 	Organelles.forEach(createOrganelles)
-	console.log('Cell', Cell.find)
+	// console.log('Cell', Cell.find)
 	return Cell
 }

@@ -6,7 +6,8 @@ const VALIDATE_FACTORY_PATH = './../_hadrons/' + VALIDATE_FACTORY
 const CONFIG = {
   ATOM_NAME,
   VALIDATE_FACTORY_PATH,
-  type: String
+  type: String,
+  required: true
 }
 
 const Atom = require('./../_factories/atom')(CONFIG)

@@ -1,8 +1,2 @@
-
-module.exports = (Routes, router) => {
-
-  Routes.forEach( (route, index) => {
-    router[route.method](route.path, route.action)
-  });
-  return router
-}
+module.exports = (Routes, router) => Routes.map( (route, index) => 
+  router[route.method](route.path, route.action) )
