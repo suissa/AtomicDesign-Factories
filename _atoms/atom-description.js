@@ -1,14 +1,7 @@
-const ATOM_NAME = __filename.split('atom-')[1].split('.js')[0].toLowerCase()
-const VALIDATE_TYPE = 'Mongoose'
-const VALIDATE_FACTORY = 'factory' +VALIDATE_TYPE+ 'Validate'
-const VALIDATE_FACTORY_PATH = './../_hadrons/' + VALIDATE_FACTORY
-
-const CONFIG = {
-  ATOM_NAME,
-  VALIDATE_FACTORY_PATH,
-  type: String
-}
+const ATOM_NAME = require('./../_config/atoms/getAtomName')(__filename)
+const ATOM_CONFIG = require('./../_config/atoms/getConfigPath')(ATOM_NAME)
+const CONFIG = require(ATOM_CONFIG)
 
 const Atom = require('./../_factories/atom')(CONFIG)
-// console.log('Atom', Atom)
+console.log('Atom', Atom)
 module.exports = Atom
