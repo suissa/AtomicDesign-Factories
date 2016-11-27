@@ -1,4 +1,3 @@
-const CONFIG = require('./config')
 const name = require('./../../_config/module/getName')(__filename)
 const organelles = ['findById-populate']
 
