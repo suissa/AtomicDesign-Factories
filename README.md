@@ -40,6 +40,76 @@ Após termos o Organismo criado iremos utilizar suas funções nas rotas.
 ## Estrutura
 
 
+Antes de entramos nesse assunto precisamos entender quais são as partes que compõe essa estrutura.
+
+Vamos iniciar pelas rotas, provavelmente você está acostumado a ter apenas 1 arquivo para rotas, correto?
+
+Aqui nós teremos pelo menos 5 arquivos separados mais 1 arquivo para cada rota.
+
+> UUUUUU QUEEEE?????!!!!
+
+Fiz isso para modularizarmos de uma forma que possamos reusar essas rotas em outros frameworks e sistemas.
+
+### Estrutura - Rotas 
+
+Para deixarmos as rotas agnósticas de framework a primeira coisa que modularizamos é o *Router* do Express, `routes/routerExpress.js`:
+
+```js
+module.exports = require('express').Router()
+```
+
+Depois precisamos ter a configuração das nossas rotas em um módulo separado, `routes/index.js`:
+
+```js
+module.exports = (Organism) => ([
+  require('./get.find')(Organism),
+  require('./get.findById-populate')(Organism),
+  require('./put.update')(Organism),
+  require('./delete.remove')(Organism),
+  require('./post.create')(Organism)
+])
+```
+
+Como você deve ter percebido acima as nossas rotas estão separadas por arquivo e para importarmos elas precisamos injetar o *Organism* em cada uma, isso para que a mesma possa ser usada por qualquer outro *Organism*.
+
+Vamos pegar a rota `get.find.js`:
+
+```js
+const ROUTE = require('../../../_config/routes/getRouteData')(__filename)
+const METHOD = ROUTE.split('.')[0]
+const ACTION = ROUTE.split('.')[1]
+const PATHS = require('./paths')
+
+module.exports = (Organism) => ({
+  method: METHOD,
+  path: PATHS.base,
+  action: Organism[ACTION]
+})
+```
+
+No arquivo `getRouteData` temos a função que recebe o caminho do `__filename` dessa rota para pegar, pelo nome do seu arquivo, o método e a função a ser executada nessa rota:
+
+```js
+module.exports = (_file) => _file.split('routes')[1].slice(1)
+```
+
+Então nosso padrão de nomenclatura para cada rota é: `METHOD`.`ACTION` e o `path` eu deixo armazenado em um módulo bem simples, por hora, mas que pode vir a ficar complexo:
+
+```js
+module.exports = {base: '/', id: '/:id'}
+```
+
+E por fim importamos a função que irá gerar as rotas especificamente para o Express, `routes/routesExpress.js`, injetando as Rotas e o Router para que ele faça sua mágica:
+
+```js
+module.exports = (Routes, router) => 
+  Routes.map( (route, i) => 
+    router[route.method](route.path, route.action) )
+```
+
+
+### Estrutura - Pastas
+
 Como utilizamos uma estrutura atômica/modular para que possamos reaproveitar ao máximo tudo que criarmos possuimos algumas pastas *"globais"* para o projeto, pois os módulos apenas usarão o que já tiver sido criado.
 
 Essas pastas são:
