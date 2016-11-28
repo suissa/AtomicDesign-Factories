@@ -1,7 +1,6 @@
 const CONFIG_PATH = './../_config/'
 
 const REQUIRED = require(CONFIG_PATH + 'fields-required')
-const OPTIONAL = require(CONFIG_PATH + 'fields-optional')
 const FIELDS_REMOVE = require(CONFIG_PATH + 'fields-remove')
 
 const createRequired = (CONFIG) => 
@@ -12,22 +11,13 @@ const createRequired = (CONFIG) =>
       })
     : ({type: CONFIG.type})
 
-const createOptional = (CONFIG) => 
+const createOptional = (CONFIG, OPTIONAL) =>
   Object.keys(CONFIG)
-    .filter( (key) => OPTIONAL.includes(key) )
-    .map( (option, i) => Object.assign({}, {[option]: CONFIG[option]}) )
-    .reduce( (acc, cur) => Object.assign(acc, {
-        [Object.keys(cur)[0]]: cur[Object.keys(cur)[0]]
-      }), {})
+    .filter( Array.prototype.includes.bind(OPTIONAL) )    
+    .reduce( (acc, key) => Object.assign(acc, { [key]: CONFIG[key] }), {})
 
 module.exports = (CONFIG) => {
-  // console.log('CONFIG atom factory', CONFIG)
-  // console.log('FIELDS_REMOVE', FIELDS_REMOVE)
-  // if (CONFIG.COMPOSE) {
-  //   console.log('EH COMPOOOSEE')
-  //   const _atoms = Object.keys(CONFIG).filter((field) => !FIELDS_REMOVE.includes(field))
-
-  // }
-  return Object.assign( {}, createRequired(CONFIG), createOptional(CONFIG))
+  const OPTIONAL = require(CONFIG_PATH + 'fields-optional')
+  return Object.assign( {}, createRequired(CONFIG), createOptional(CONFIG, OPTIONAL))
 }
 
